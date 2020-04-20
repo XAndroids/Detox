@@ -79,7 +79,7 @@
         "build": "cd android && ./gradlew assembleFromBinDebug assembleFromBinDebugAndroidTest -DtestBuildType=debug && cd ..",
         "type": "android.emulator",
         "device": {
-          "avdName": "Pixel_API_28"
+          "avdName": "Pixel_XL_API_28"
         }
       },
       "android.emu.release": {

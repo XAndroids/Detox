@@ -1,3 +1,5 @@
+//describe()被Jest全局方法
+//参考：https://jestjs.io/docs/en/api#describename-fn
 describe('Sanity', () => {
   beforeEach(async () => {
     await device.reloadReactNative();

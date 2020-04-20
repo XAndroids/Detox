@@ -6,6 +6,9 @@ import {
   AppRegistry,
 } from 'react-native';
 
+/**
+ * Test App组件
+ */
 class exampleAndroid extends example {
 
 }
