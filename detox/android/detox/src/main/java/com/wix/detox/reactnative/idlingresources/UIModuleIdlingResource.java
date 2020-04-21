@@ -65,11 +65,13 @@ public class UIModuleIdlingResource implements IdlingResource, Choreographer.Fra
         try {
             // reactContext.hasActiveCatalystInstance() should be always true here
             // if called right after onReactContextInitialized(...)
+            //mCatalystInstance：在异步JSC桥之上的高级别API，提供环境允许调用JavaScript方法，让JavaScript调用一些Java API
             if (Reflect.on(reactContext).field(FIELD_CATALYST_INSTANCE).get() == null) {
                 Log.e(LOG_TAG, "No active CatalystInstance. Should never see this.");
                 return false;
             }
 
+            //调用ReactContext的hasNativeModule()方法，判断是否有NativeModule
             if (!(boolean)Reflect.on(reactContext).call(METHOD_HAS_NATIVE_MODULE, uiModuleClass).get()) {
                 Log.e(LOG_TAG, "Can't find UIManagerModule.");
                 if (callback != null) {

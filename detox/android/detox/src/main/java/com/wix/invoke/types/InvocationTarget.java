@@ -2,8 +2,9 @@ package com.wix.invoke.types;
 
 import org.apache.commons.lang3.reflect.MethodUtils;
 import java.lang.reflect.InvocationTargetException;
+
 /**
- * Created by rotemm on 20/10/2016.
+ * Action调用Target，使用DetoxServer Action Json解析的Incocation，使用MethodUtils反射调用真正的Native方法执行
  */
 public class InvocationTarget extends Target {
 

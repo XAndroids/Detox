@@ -48,6 +48,7 @@ public abstract class Target {
             this.value = innerInvocation.getTarget().invoke(innerInvocation);
         }
 
+        //解析出调用的参数
         Object[] args = invocation.getArgs();
         for (int i = 0; i < args.length; i++) {
             if (args[i] instanceof Invocation) {
@@ -56,6 +57,7 @@ public abstract class Target {
             }
         }
         invocation.setArgs(args);
+
         return execute(invocation);
     }
 

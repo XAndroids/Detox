@@ -128,6 +128,7 @@ public final class Detox {
                     @Override
                     public void run() {
                         DetoxManager detoxManager = new DetoxManager(context);
+                        //启动Testee Client网络服务
                         detoxManager.start();
                     }
                 });

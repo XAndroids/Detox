@@ -39,6 +39,9 @@ class ReactNativeReloadActionHandler(
     }
 }
 
+/**
+ * 调用Action的Hander，如tap()等Action
+ */
 class InvokeActionHandler(
         private val methodInvocation: MethodInvocation,
         private val wsClient: WebSocketClient)
@@ -46,8 +49,9 @@ class InvokeActionHandler(
 
     override fun handle(params: String, messageId: Long) {
         try {
-            //Action执行完毕后，通过invokeResult给DetoxServer返回执行结果
+            //执行Action
             val invocationResult = methodInvocation.invoke(params)
+            //Action执行完毕后，通过invokeResult给DetoxServer返回执行结果
             wsClient.sendAction("invokeResult", mapOf<String, Any?>("result" to invocationResult), messageId)
         } catch (e: InvocationTargetException) {
             Log.e(LOG_TAG, "Exception", e)

@@ -35,6 +35,7 @@ class DetoxManager implements WebSocketClient.ActionHandler {
     private Handler handler;
 
     private TestEngineFacade testEngineFacade = new TestEngineFacade();
+    //处理各种类型的action的Hander
     private Map<String, DetoxActionHandler> actionHandlers = new HashMap<>();
     private ReadyActionHandler readyActionHandler = null;
 
@@ -45,6 +46,7 @@ class DetoxManager implements WebSocketClient.ActionHandler {
 
         handler = new Handler();
 
+        //从Test中获取detoxServerUrl和detoxSessionId，否则用默认值
         Bundle arguments = InstrumentationRegistry.getArguments();
         detoxServerUrl = arguments.getString(DETOX_SERVER_ARG_KEY);
         if (detoxServerUrl != null) {
@@ -100,6 +102,7 @@ class DetoxManager implements WebSocketClient.ActionHandler {
         handler.post(new Runnable() {
             @Override
             public void run() {
+                //根据action的类型，选择相应的Hander进行处理
                 final DetoxActionHandler handler = actionHandlers.get(type);
                 if (handler != null) {
                     handler.handle(params, messageId);
@@ -132,6 +135,9 @@ class DetoxManager implements WebSocketClient.ActionHandler {
         new DetoxCrashHandler(wsClient).attach();
     }
 
+    /**
+     * 初始化各种类型的ActionHander
+     */
     private void initActionHandlers() {
         readyActionHandler = new ReadyActionHandler(wsClient, testEngineFacade);
         actionHandlers.clear();

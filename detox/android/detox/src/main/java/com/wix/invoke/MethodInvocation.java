@@ -10,7 +10,6 @@ import org.apache.commons.lang3.StringUtils;
 import java.lang.reflect.InvocationTargetException;
 import org.json.JSONException;
 
-
 /**
  * Created by rotemm on 10/10/2016.
  */
@@ -21,12 +20,15 @@ public class MethodInvocation {
     }
 
     public Object invoke(String invocationJson, Class<?> extendWith) throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, IllegalAccessException, JSONException {
+        //将DetoxServer发送的action的Json解析呈Invocation
         JsonParser parser = new JsonParser();
         Invocation invocation = new Invocation(parser.parse(invocationJson));
+
         return invoke(invocation);
     }
 
     public Object invoke(Invocation invocation) throws ClassNotFoundException, NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+        //检测是否有调用方法
         if (StringUtils.isBlank(invocation.getMethod()))
             throw new EmptyInvocationInstructionException();
 

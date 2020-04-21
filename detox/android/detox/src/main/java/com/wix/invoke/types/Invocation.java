@@ -12,7 +12,7 @@ import java.util.HashMap;
 import java.util.List;
 
 /**
- * Created by rotemm on 10/10/2016.
+ * 调用抽象了 ，抽象了调用的类、方法、参数等信息，从DetoxServer进行通信使用
  */
 public class Invocation {
     private Target target;
