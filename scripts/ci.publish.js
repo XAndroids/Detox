@@ -19,18 +19,22 @@ function publishNewVersion(packageVersion) {
   return true;
 }
 
+//验证lerna相关先决条件
 function validatePrerequisites() {
+  //lerna是否初始化
   const lernaBin = exec.which('lerna');
   if (!lernaBin) {
     throw new Error(`Cannot publish: lerna not installed!`);
   }
 
+  //lerna版本是否大于2.x.x
   const lernaVersion = exec.execSyncRead('lerna --version');
   if (!lernaVersion.startsWith('2.')) {
     throw new Error(`Cannot publish: lerna version isn't 2.x.x (actual version is ${lernaVersion})`);
   }
 }
 
+//项目设置，bootstrap，切换master分支
 function projectSetup() {
   logSection('Project setup');
   exec.execSync(`lerna bootstrap`);
@@ -41,6 +45,7 @@ function prePublishToNpm() {
   logSection('Prepublish');
 
   log('Gathering up iOS artifacts...');
+  //打包ios组件
   process.chdir('detox');
   const {packageIosSources} = require('../detox/scripts/pack_ios');
   packageIosSources();
@@ -56,6 +61,7 @@ function publishToNpm() {
     log('DRY RUN: Running lerna without publishing');
   }
 
+  //通过lerna发布到npm中
   exec.execSync(`lerna publish --cd-version "${versionType}" --yes --skip-git ${dryRun ? '--skip-npm' : ''}`);
   exec.execSync('git status');
 }

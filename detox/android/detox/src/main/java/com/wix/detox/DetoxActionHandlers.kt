@@ -46,6 +46,7 @@ class InvokeActionHandler(
 
     override fun handle(params: String, messageId: Long) {
         try {
+            //Action执行完毕后，通过invokeResult给DetoxServer返回执行结果
             val invocationResult = methodInvocation.invoke(params)
             wsClient.sendAction("invokeResult", mapOf<String, Any?>("result" to invocationResult), messageId)
         } catch (e: InvocationTargetException) {

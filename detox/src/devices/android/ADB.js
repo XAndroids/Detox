@@ -75,6 +75,7 @@ class ADB {
     return this.shell(deviceId, `date +"%m-%d %T.000"`);
   }
 
+  //使用pm list查询是否安装过指定app
   async isPackageInstalled(deviceId, packageId) {
     const output = await this.shell(deviceId, `pm list packages ${packageId}`);
     const packageRegexp = new RegExp(`^package:${escape.inQuotedRegexp(packageId)}$`, 'm');
@@ -83,6 +84,7 @@ class ADB {
     return isInstalled;
   }
 
+  //使用adb install命令安装app
   async install(deviceId, apkPath) {
     apkPath = `"${escape.inQuotedString(apkPath)}"`;
 
@@ -104,10 +106,12 @@ class ADB {
     }
   }
 
+  //使用adb uninstall $appId命令卸载app
   async uninstall(deviceId, appId) {
     await this.adbCmd(deviceId, `uninstall ${appId}`);
   }
 
+  //使用adb am force-stop $appId命令终止当前运行的app
   async terminate(deviceId, appId) {
     await this.shell(deviceId, `am force-stop ${appId}`);
   }
@@ -224,6 +228,7 @@ class ADB {
     await this.shell(deviceId, `rm ${force ? '-f' : ''} "${path}"`);
   }
 
+  //使用adb pm list instrumentation获取instrumentation测试类
   async listInstrumentation(deviceId) {
     return this.shell(deviceId, 'pm list instrumentation');
   }

@@ -8,6 +8,7 @@ class InvocationManager {
   }
 
   async execute(invocation) {
+    //执行Element的action
    return await this.executionHandler.execute(invocation);
   }
 }

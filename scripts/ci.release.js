@@ -18,8 +18,9 @@ function run() {
 	setupNpmConfig();
 	versionTagAndPublish();
 }
-
+//确认是否是有效的环境，CI和分支等
 function validateEnv() {
+	//检查Jenkins CI环境
 	if (!process.env.JENKINS_CI) {
 		throw new Error(`Release blocked: Not on a CI build machine!`);
 	}
@@ -29,6 +30,7 @@ function validateEnv() {
 		return false;
 	}
 
+	//检查master分支
 	if (process.env.GIT_BRANCH !== ONLY_ON_BRANCH) {
 		log(`Release blocked: Not publishing on branch ${process.env.GIT_BRANCH}, which isn't ${ONLY_ON_BRANCH}`);
 		return false;
@@ -37,6 +39,7 @@ function validateEnv() {
 	return true;
 }
 
+//设置Git相关配置
 function setupGitConfig() {
 	exec.execSyncSilent(`git config --global push.default simple`);
 	exec.execSyncSilent(`git config --global user.email "${process.env.GIT_EMAIL}"`);
@@ -45,6 +48,7 @@ function setupGitConfig() {
 	exec.execSyncSilent(`git remote add deploy "https://${process.env.GIT_USER}:${process.env.GIT_TOKEN}@${remoteUrl}"`);
 }
 
+//设置Npm相关配置
 function setupNpmConfig() {
 	exec.execSync(`rm -f package-lock.json`);
 	const content = `
@@ -58,6 +62,7 @@ email=\${NPM_EMAIL}
 	fs.copyFileSync('.npmrc', 'detox-cli/.npmrc');
 }
 
+//获取版本tag并且发布
 function versionTagAndPublish() {
 	logSection('Preparing to tag/release');
 

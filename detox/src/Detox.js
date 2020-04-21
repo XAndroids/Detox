@@ -41,6 +41,7 @@ class Detox {
       ...userParams,
     };
 
+    //创建并启动DetoxSever
     if (!this._userSession) {
       this._server = new DetoxServer({
         log: logger,
@@ -48,6 +49,7 @@ class Detox {
       });
     }
 
+    //创建Client并连接DetoxServer
     this._client = new Client(sessionConfig);
     await this._client.connect();
 
@@ -56,10 +58,12 @@ class Detox {
       throw new Error(`'${this._deviceConfig.type}' is not supported`);
     }
 
+    //this._client用户执行action
     const deviceDriver = new DeviceDriverClass({
       client: this._client,
     });
 
+    //订阅bootDevice,launchApp等事件
     this._artifactsManager.subscribeToDeviceEvents(deviceDriver);
     this._artifactsManager.registerArtifactPlugins(deviceDriver.declareArtifactPlugins());
 
@@ -69,6 +73,7 @@ class Detox {
       sessionConfig,
     });
 
+    //做好设备相关的准备工作，如卸载重装app
     await device.prepare(params);
 
     const globalsToExport = {

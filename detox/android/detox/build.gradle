@@ -114,7 +114,7 @@ if (rootProject.hasProperty('isOfficialDetoxLib') ||
     }
 }
 
-// Enable publishing
+//启动detox android aar发布
 if (rootProject.hasProperty('isOfficialDetoxLib')) {
     apply from: './detox-publishing.gradle'
 }

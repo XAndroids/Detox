@@ -13,6 +13,8 @@ public class InvocationTarget extends Target {
 
     @Override
     public Object execute(Invocation invocation) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+        //通过MethodUtils，使用DetoxSever返回的json数据，通过反射调用相关的方法
+        //参考：http://www.xwood.net/_site_domain_/_root/5870/5874/t_c272012.html
         return  MethodUtils.invokeMethod(invocation.getTarget().getValue(), invocation.getMethod(), invocation.getArgs());
     }
 }

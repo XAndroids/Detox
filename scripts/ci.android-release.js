@@ -5,6 +5,7 @@ function run() {
   logSection('Initializing');
   exec.execSync('lerna bootstrap');
 
+  //发布js代码
   const versionType = process.env.RELEASE_VERSION_TYPE;
   logSection(`Pre-calculating future version... (versionType=${versionType})`);
   exec.execSync(`lerna publish --cd-version "${versionType}" --yes --skip-git --skip-npm`);
@@ -12,6 +13,7 @@ function run() {
   log('Version is: ' + futureVersion);
   exec.execSync('git reset --hard');
 
+  //发布android aar
   logSection('Packing up Android artifacts...');
   log('Accepting all Android SDK licenses...');
   exec.execSync(`yes | ${process.env.ANDROID_HOME}/tools/bin/sdkmanager --licenses`);

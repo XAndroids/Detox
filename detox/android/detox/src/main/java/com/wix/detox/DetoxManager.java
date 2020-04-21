@@ -123,6 +123,7 @@ class DetoxManager implements WebSocketClient.ActionHandler {
     }
 
     private void initWSClient() {
+        //开始手机端的SocketServer和DetoxServer通信
         wsClient = new WebSocketClient(this);
         wsClient.connectToServer(detoxServerUrl, detoxSessionId);
     }

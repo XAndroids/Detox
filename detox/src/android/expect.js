@@ -26,9 +26,11 @@ function call(maybeAFunction) {
 
 class Action {}
 
+//点击事件Action
 class TapAction extends Action {
   constructor() {
     super();
+    //this._call是按照协商，包装的代表事件action的json格式
     this._call = invoke.callDirectly(DetoxViewActionsApi.click());
   }
 }
@@ -124,7 +126,9 @@ class Interaction {
     this._invocationManager = invocationManager;
   }
 
+  //交互事件，如action执行方法
   async execute() {
+    //this._invocationManager最终调用的是Client和DetoxServer通信，this._call是代表该事件的json格式
     await this._invocationManager.execute(this._call);
   }
 }
@@ -199,6 +203,7 @@ class WaitForActionInteraction extends WaitForActionInteractionBase {
 
 class Element {
   constructor(invocationManager, matcher) {
+    //Element执行action的_invocationManager，最终是Client
     this._invocationManager = invocationManager;
     this._originalMatcher = matcher;
     this._selectElementWithMatcher(this._originalMatcher);
@@ -216,6 +221,8 @@ class Element {
     this._selectElementWithMatcher(this._originalMatcher);
     return this;
   }
+
+  //执行点击事件
   async tap() {
     return await new ActionInteraction(this._invocationManager, this, new TapAction()).execute();
   }

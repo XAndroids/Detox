@@ -5,6 +5,9 @@ import {
   TouchableOpacity
 } from 'react-native';
 
+/**
+ * 完整RN Demo，点击Say Hello展示Hello，点击Say Word展示World
+ */
 export default class SanityScreen extends Component {
 
   constructor(props) {

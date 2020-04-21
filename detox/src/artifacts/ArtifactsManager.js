@@ -187,6 +187,7 @@ class ArtifactsManager {
   }
 
   async _callPlugins(strategy, methodName, ...args) {
+    //FIXME 插件回调执行什么了？？？插件和Event时什么关系？？
     const callSignature = this._composeCallSignature('artifactsManager', methodName, args);
     log.trace(Object.assign({ event: 'LIFECYCLE', fn: methodName }, ...args), callSignature);
 

@@ -22,11 +22,13 @@ class Device {
 
     await this.deviceDriver.prepare();
 
+    //不过不重用，则卸载重新安装app
     if (!argparse.getArgValue('reuse') && !params.reuse) {
       await this.deviceDriver.uninstallApp(this._deviceId, this._bundleId);
       await this.deviceDriver.installApp(this._deviceId, this._binaryPath, this._testBinaryPath);
     }
 
+    //启动app
     if (params.launchApp) {
       await this.launchApp({newInstance: true});
     }

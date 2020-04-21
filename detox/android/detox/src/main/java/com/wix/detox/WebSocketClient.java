@@ -52,6 +52,7 @@ public class WebSocketClient extends WebSocketListener {
     @Override
     public void onMessage(WebSocket webSocket, String text) {
         Log.i(LOG_TAG, "At onMessage");
+        //DetoxServer发送给手机Client的消息
         receiveAction(websocket, text);
     }
 
@@ -102,6 +103,7 @@ public class WebSocketClient extends WebSocketListener {
     }
 
     public void connectToServer(String url, String sessionId) {
+        //通过seesionId连接DetoxServer，执行DetoxServer发送给手机端的动作action
         Log.i(LOG_TAG, "At connectToServer");
         this.url = url;
         this.sessionId = sessionId;

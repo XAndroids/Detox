@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import { Text, View, NativeModules, Platform } from 'react-native';
 import _ from 'lodash';
 
+/**
+ * 获取平台的地区和语言
+ */
 export default class LanguageScreen extends Component {
   render() {
 

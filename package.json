@@ -1,8 +1,11 @@
 {
   "scripts": {
     "test:e2e:ios": "pushd detox/test && npm run e2e:ios && popd",
+    "//test:e2e:android": "进入到detox自动化测试text新项目，执行该项目android的e2e测试",
     "test:e2e:android": "pushd detox/test && npm run e2e:android && popd",
+    "//release": "执行发布流程（必须运行在Jenkins CI环境中。FIXME 为什么只看到打包iOS呢？）",
     "release": "node scripts/ci.release.js",
+    "//package:android": "",
     "package:android": "node scripts/ci.android-release.js"
   },
   "publishConfig": {

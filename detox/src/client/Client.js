@@ -21,6 +21,7 @@ class Client {
   }
 
   async connect() {
+    //连接DetoxServer，发送actions.Login消息
     await this.ws.open();
     await this.sendAction(new actions.Login(this.configuration.sessionId));
   }
@@ -78,6 +79,7 @@ class Client {
     await this.sendAction(new actions.DeliverPayload(params));
   }
 
+  //自行TestRunner发送过来的action
   async execute(invocation) {
     if (typeof invocation === 'function') {
       invocation = invocation();
@@ -92,6 +94,7 @@ class Client {
     const potentialError = new Error();
 
     try {
+      //将这个action通过Socket发送给DetoxServer
       return await this.sendAction(new actions.Invoke(invocation));
     } catch (err) {
       this.successfulTestRun = false;
@@ -123,6 +126,7 @@ class Client {
   }
 
   async sendAction(action) {
+    //将Detox API执行的action发送给DetoxServer
     const response = await this.ws.send(action, action.messageId);
     const parsedResponse = JSON.parse(response);
     await action.handle(parsedResponse);

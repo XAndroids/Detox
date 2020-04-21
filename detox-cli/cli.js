@@ -3,7 +3,9 @@ const cp = require('child_process');
 const path = require('path');
 const fs = require('fs');
 
+//获取detox的安装目录
 const detoxPath = path.join(process.cwd(), 'node_modules/detox');
+//获取detox的package.json目录
 const detoxPackageJsonPath = path.join(detoxPath, 'package.json');
 
 if (fs.existsSync(detoxPackageJsonPath)) {
@@ -15,6 +17,7 @@ if (fs.existsSync(detoxPackageJsonPath)) {
       { stdio: 'inherit' });
     process.exit(result.status);
   } else {
+    //非windows平台执行detox命令
     const result = cp.spawnSync(
       path.join(process.cwd(), 'node_modules/.bin/detox'),
       process.argv.slice(2),
@@ -22,6 +25,7 @@ if (fs.existsSync(detoxPackageJsonPath)) {
     process.exit(result.status);
   }
 } else {
+  //如果detox的package.json文件不存在，则输出Detox没有安装
   console.log(detoxPackageJsonPath);
   console.log("detox is not installed in this directory");
   process.exit(1);

@@ -18,6 +18,7 @@
   "author": "Tal Kol <talkol@gmail.com>",
   "license": "MIT",
   "scripts": {
+    "//build": "分别构建ios tbz和android aar包",
     "build": "node scripts/build.js",
     "lint": "eslint runners src scripts",
     "unit": "jest --coverage --verbose",
@@ -25,7 +26,9 @@
     "test": "npm run unit",
     "posttest": "cp coverage/lcov.info coverage/unit.lcov",
     "unit:watch": "jest --watch",
+    "//prepublish": "同scripts/build",
     "prepublish": "npm run build",
+    "//postinstall": "？",
     "postinstall": "node scripts/postinstall.js"
   },
   "devDependencies": {

@@ -14,7 +14,7 @@ jasmine.getEnv().addReporter(specReporter);
 // This is strictly optional.
 jasmine.getEnv().addReporter(assignReporter);
 
-// Set the default timeout
+//设置默认的超时
 jest.setTimeout(360000);
 
 beforeAll(async () => {

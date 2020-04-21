@@ -143,6 +143,7 @@ module.exports.builder = {
 
 const collectExtraArgs = require('./utils/collectExtraArgs')(module.exports.builder);
 
+//test命令处理函数
 module.exports.handler = async function test(program) {
   const config = getDetoxSection();
 
@@ -169,6 +170,7 @@ module.exports.handler = async function test(program) {
       return runJest();
     }
 
+    //执行mochaTestRunner
     if (runner.includes('mocha')) {
       return runMocha();
     }
@@ -223,6 +225,7 @@ module.exports.handler = async function test(program) {
       log.warn('Can not use -w, --workers. Parallel test execution is only supported with iOS and Jest');
     }
 
+    //拼接执行的命令和参数
     const command = _.compact([
       (path.join('node_modules', '.bin', runner)),
       ...safeGuardArguments([
@@ -347,6 +350,7 @@ module.exports.handler = async function test(program) {
 
   function launchTestRunner(command, detoxEnvironmentVariables) {
     log.info(printEnvironmentVariables(detoxEnvironmentVariables) + command);
+    //执行拼接的命令，跳转e2e/init.js执行
     cp.execSync(command, {
       stdio: 'inherit',
       env: {

@@ -25,8 +25,9 @@ const AndroidExpect = require('../../android/expect');
 class AndroidDriver extends DeviceDriverBase {
   constructor(config) {
     super(config);
-
+    //this.client执行action的Client
     this.invocationManager = new InvocationManager(this.client);
+    //matchers查找元素，this.invocationManager用于执行该元素的action
     this.matchers = new AndroidExpect(this.invocationManager);
     this.uiDevice = new UiDeviceProxy(this.invocationManager).getUIDevice();
 
@@ -52,7 +53,9 @@ class AndroidDriver extends DeviceDriverBase {
   }
 
   async installApp(deviceId, binaryPath, testBinaryPath) {
+    //安装app
     await this.adb.install(deviceId, binaryPath);
+    //安装测试app
     await this.adb.install(deviceId, testBinaryPath ? testBinaryPath : this.getTestApkPath(binaryPath));
   }
 
@@ -71,6 +74,7 @@ class AndroidDriver extends DeviceDriverBase {
   }
 
   async uninstallApp(deviceId, bundleId) {
+    //卸载前，发送beforeUninstallApp通知
     await this.emitter.emit('beforeUninstallApp', { deviceId, bundleId });
 
     if (await this.adb.isPackageInstalled(deviceId, bundleId)) {
@@ -205,7 +209,9 @@ class AndroidDriver extends DeviceDriverBase {
     const launchArgs = this._prepareLaunchArgs(rawLaunchArgs);
     const additionalLaunchArgs = this._prepareLaunchArgs({debug: false});
     const serverPort = new URL(this.client.configuration.server).port;
+    //映射服务端口
     await this.adb.reverse(deviceId, serverPort);
+    //获取InstrumentationRunner，启动testRunner
     const testRunner = await this.adb.getInstrumentationRunner(deviceId, bundleId);
     const spawnFlags = [`-s`, `${deviceId}`, `shell`, `am`, `instrument`, `-w`, `-r`, ...launchArgs, ...additionalLaunchArgs, testRunner];
 

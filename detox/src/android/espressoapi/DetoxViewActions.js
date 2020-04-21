@@ -7,6 +7,7 @@
 
 
 class DetoxViewActions {
+  //代表点击事件action的json格式，后续通过Client以参数的形式，通过Socket发送给DetoxServer
   static click() {
     return {
       target: {

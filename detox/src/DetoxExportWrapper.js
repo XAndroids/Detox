@@ -72,6 +72,7 @@ class DetoxExportWrapper {
         deviceConfig,
       });
 
+      //创建并启动Detox服务器
       instance = new Detox({
         deviceConfig,
         artifactsConfig,

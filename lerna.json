@@ -1,5 +1,7 @@
 {
+  "//1": "lerna：使用的lerna版本",
   "lerna": "2.4.0",
+  "//2": "packages：管理的package的文件路径，发布detox/detox-cli等多个npm包",
   "packages": [
     "detox",
     "detox-cli",
@@ -11,10 +13,13 @@
     "examples/demo-react-native-jest",
     "generation"
   ],
+  "//3": "version：当前仓库package版本",
   "version": "14.9.1",
+  "//4": "npmClient：指令执行的client",
   "npmClient": "npm",
   "command": {
     "publish": {
+      "//5": "ignoreChanges：不会包含进lerna change/publish操作的文件路径",
       "ignoreChanges": [
         "demo-react-native-jest",
         "examples/demo-react-native-detox-instruments",

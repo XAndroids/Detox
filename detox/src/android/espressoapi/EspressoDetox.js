@@ -7,6 +7,7 @@
 
 
 class EspressoDetox {
+  //Espresso直接执行action的包装格式
   static perform(interaction, action) {
     return {
       target: {

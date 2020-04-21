@@ -22,6 +22,7 @@ function call(target, method, ...args) {
   };
 }
 
+//直接调用json格式包装
 function callDirectly(json) {
   return {
     type: 'Invocation',

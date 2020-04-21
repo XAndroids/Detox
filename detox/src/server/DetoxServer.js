@@ -27,16 +27,19 @@ class DetoxServer {
             return;
           }
           if (action.type === 'login') {
+            //处理Client连接服务器login消息
             if (action.params && action.params.sessionId && action.params.role) {
               sessionId = action.params.sessionId;
               role = action.params.role;
               this.log.debug({ event: 'LOGIN' }, `role=${role}, sessionId=${sessionId}`);
               _.set(this.sessions, [sessionId, role], ws);
+              //登录成功，返回loginSuccess消息
               action.type = 'loginSuccess';
               this.sendAction(ws, action);
               this.log.debug({ event: 'LOGIN_SUCCESS' }, `role=${role}, sessionId=${sessionId}`);
             }
           } else if (sessionId && role) {
+            //处理Client链接服务器的其它消息：如action动作
             this.log.trace({ event: 'MESSAGE', action: action.type }, `role=${role} action=${action.type} (sessionId=${sessionId})`);
             this.sendToOtherRole(sessionId, role, action);
           }
@@ -68,11 +71,13 @@ class DetoxServer {
   }
 
   sendAction(ws, action) {
+    //向手机发送sock信息
     ws.send(JSON.stringify(action) + '\n ');
   }
 
   sendToOtherRole(sessionId, role, action) {
     const otherRole = role === ROLE_TESTEE ? ROLE_TESTER : ROLE_TESTEE;
+    //获取和手机通信的Socket
     const ws = _.get(this.sessions, [sessionId, otherRole]);
     if (ws && ws.readyState === WebSocket.OPEN) {
       this.sendAction(ws, action);
