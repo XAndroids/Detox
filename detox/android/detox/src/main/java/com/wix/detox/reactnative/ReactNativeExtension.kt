@@ -14,11 +14,8 @@ object ReactNativeExtension {
     private var rnIdlingResources: ReactNativeIdlingResources? = null
 
     /**
-     * Reloads the React Native context and thus all javascript code.
-     *
-     * It is a lot faster to reload a React Native application this way,
-     * than to reload the whole Activity or Application.
-     *
+     * 重新记载React Native context和所有JavaScript代码。
+     * 以这种方式重新加载React Native应用，要比重新加载整个Activity或者Application快得多。
      * @param applicationContext The app context, implicitly assumed to be a [ReactApplication] instance.
      */
     @JvmStatic
@@ -31,13 +28,17 @@ object ReactNativeExtension {
 
         (applicationContext as ReactApplication).let {
             val networkSyncEnabled = rnIdlingResources?.networkSyncEnabled ?: true
+            //清除RN和自定义的IdlingResources
             clearIdlingResources()
 
             val previousReactContext = getCurrentReactContextSafe(it)
 
+            //后台异步重新LoadReactNative
             reloadReactNativeInBackground(it)
+            //"同步等待"异步Load完毕，获取最新的上下文
             val reactContext = awaitNewReactNativeContext(it, previousReactContext)
 
+            //重新注册IdlingResources
             setupIdlingResources(reactContext, networkSyncEnabled)
             hackRN50OrHigherWaitForReady()
         }
@@ -100,6 +101,7 @@ object ReactNativeExtension {
     }
 
     private fun setupIdlingResources(reactContext: ReactContext, networkSyncEnabled: Boolean = true) {
+        //构造ReactNativeIdlingResources，注册所有的Resources
         rnIdlingResources = ReactNativeIdlingResources(reactContext, networkSyncEnabled).apply {
             registerAll()
         }

@@ -11,7 +11,11 @@ import java.lang.reflect.InvocationTargetException
 
 private const val LOG_TAG = "DetoxManager"
 
+/**
+ * DetoxActionHandler接口，定义了处理DetoxServer发送过来的指令（Action）处理方法接口
+ */
 interface DetoxActionHandler {
+    //处理DetoxServer发送过来的指令
     fun handle(params: String, messageId: Long)
 }
 
@@ -26,6 +30,9 @@ class ReadyActionHandler(
     }
 }
 
+/**
+ * ReloadReactNative ActionHanlder处理重新加载ReactNative Bundle
+ */
 class ReactNativeReloadActionHandler(
         private val appContext: Context,
         private val wsClient: WebSocketClient,
@@ -33,7 +40,9 @@ class ReactNativeReloadActionHandler(
     : DetoxActionHandler {
 
     override fun handle(params: String, messageId: Long) {
+        //保证当前为idle状态？
         testEngineFacade.syncIdle()
+        //ReloadReatNative，成功后并返回给DetoxServer ready消息
         testEngineFacade.reloadReactNative(appContext)
         wsClient.sendAction("ready", emptyMap<Any, Any>(), messageId)
     }

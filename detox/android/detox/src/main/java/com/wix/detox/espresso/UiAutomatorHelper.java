@@ -31,7 +31,7 @@ public class UiAutomatorHelper {
     private static final String METHOD_LOOP_AT_LEAST = "loopMainThreadForAtLeast";
 
     /**
-     * This triggers a full Espresso sync. It's intended use is to sync UIAutomator calls.
+     * 触发所有的Espresso同步。用于同步UIAutomator调用。
      */
     public static void espressoSync() {
         // I want to invoke Espresso's sync mechanism manually.

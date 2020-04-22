@@ -127,8 +127,8 @@ public final class Detox {
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
+                        //创建启动DetoxManager，包含Testee网络启动，ActionHanders初始化等
                         DetoxManager detoxManager = new DetoxManager(context);
-                        //启动Testee Client网络服务
                         detoxManager.start();
                     }
                 });

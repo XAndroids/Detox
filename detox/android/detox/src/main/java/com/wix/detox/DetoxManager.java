@@ -64,6 +64,9 @@ class DetoxManager implements WebSocketClient.ActionHandler {
         Log.i(LOG_TAG, "DetoxSessionId: " + detoxSessionId);
     }
 
+    /**
+     * 启动DetoxManager，启动Testee Client网络服务，初始化Action Handers等
+     */
     void start() {
         if (detoxServerUrl != null && detoxSessionId != null) {
             initReactNativeIfNeeded();

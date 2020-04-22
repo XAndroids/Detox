@@ -58,14 +58,18 @@ class ReactNativeIdlingResources constructor(
     private var animIdlingResource: AnimatedModuleIdlingResource? = null
     private var networkIdlingResource: NetworkIdlingResource? = null
 
+    /**
+    * 重新注册所有Resrouce
+    */
     fun registerAll() {
         Log.i(LOG_TAG, "Setting up Espresso Idling Resources for React Native.")
-
+        //先注销原来的Resources
         unregisterAll()
 
         setupMQThreadsInterrogators()
         syncIdlingResources()
 
+        //构建并注册RNIdlingResource
         setupCustomRNIdlingResources()
         syncIdlingResources()
     }
@@ -135,6 +139,9 @@ class ReactNativeIdlingResources constructor(
         Reflect.on(IdlingRegistry.getInstance()).field("loopers").get<Set<Any>>().clear()
     }
 
+    /**
+     * 注销自定义的RNIdlingReources
+     */
     private fun unregisterCustomRNIdlingResources() {
         IdlingRegistry.getInstance()
             .unregister(
@@ -144,6 +151,7 @@ class ReactNativeIdlingResources constructor(
                 animIdlingResource)
         rnBridgeIdlingResource?.onDetach()
 
+        //移除网络IdlingResource()，因为需要调用stop()，所以单独注销
         removeNetworkIdlingResource()
     }
 

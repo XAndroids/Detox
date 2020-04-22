@@ -10,6 +10,7 @@ open class ReactNativeReLoader(
     fun reloadInBackground() {
         val rnInstanceManager = rnApplication.reactNativeHost.reactInstanceManager
         instrumentation.runOnMainSync {
+            //调用RN API，重新Loading Bundler
             rnInstanceManager.recreateReactContextInBackground()
         }
     }
