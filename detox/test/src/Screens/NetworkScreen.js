@@ -8,7 +8,9 @@ import {
 
 // TODO Use 10.0.3.2 for Genymotion
 const HOST = Platform.OS === 'ios' ? 'localhost': '10.0.2.2';
-
+/**
+ * 网络页面
+ */
 export default class NetworkScreen extends Component {
 
   constructor(props) {
@@ -19,7 +21,10 @@ export default class NetworkScreen extends Component {
   }
 
   render() {
+    //如果有返回网络问题，则显示问候语
     if (this.state.greeting) return this.renderAfterButton();
+
+    //否则返回发起请求按钮
     return (
       <View style={{flex: 1, paddingTop: 20, justifyContent: 'center', alignItems: 'center'}}>
 
@@ -44,12 +49,20 @@ export default class NetworkScreen extends Component {
     );
   }
 
+  /**
+   * 发送网络请求
+   * @param greeting  请求参数
+   * @param delayMs 请求延迟时间
+   * @returns {Promise<void>}
+   */
   async onNetworkButtonPress(greeting, delayMs) {
     try {
+      //发起网络请求
       let response = await fetch(`http://${HOST}:9001/delay/${delayMs}`);
       let responseJson = await response.json();
       console.log(responseJson.message);
 
+      //网络请求成功后，提示问候语
       this.setState({
         greeting: greeting
       });
