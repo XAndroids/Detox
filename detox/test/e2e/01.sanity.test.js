@@ -1,5 +1,8 @@
-//describe()被Jest全局方法
-//参考：https://jestjs.io/docs/en/api#describename-fn
+//describe()为Jest全局方法
+//创建一个将几个相关测试结合在一块的代码块。
+//你可以在文件顶级编写test块，在describe内不是必须的。但是将测试分组管理是非常方便的
+//你也可以嵌套describe()块，如果你有测试层级结构
+//参考：describe(name, fn)，https://jestjs.io/docs/en/api#describename-fn
 describe('Sanity', () => {
   //点击Sanity按钮进入到页面
   beforeEach(async () => {
