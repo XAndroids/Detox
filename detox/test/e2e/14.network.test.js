@@ -4,6 +4,7 @@ describe('Network Synchronization', () => {
   //构造初始化mockServer
   let mockServer = new MockServer();
 
+  //FIXME afterAll的funtion不是async，是不等待执行完毕，继续后续运行？？
   beforeAll(() => {
     //case运行之前，启动初始化mock服务
     mockServer.init();
