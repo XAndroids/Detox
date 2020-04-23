@@ -163,6 +163,8 @@ describe('Actions', () => {
     await expect(element(by.text('HText6'))).toBeNotVisible();
   });
 
+  //xit()是test.skip()的别名
+  //参考:test.skip(),https://jestjs.io/docs/en/api#testname-fn-timeout
   // TODO - swipe is not good enough for triggering pull to refresh. need to come up with something better
   // directions: 'up'/'down'/'left'/'right', speed: 'fast'/'slow'
   xit('should swipe down until pull to reload is triggered', async () => {

@@ -72,6 +72,9 @@ describe('Matchers', () => {
     }
   });
 
+  //it.skip():当你在维护一个很大的试验，有些时候你可能查找一个case由于某种原因中断的测试。如果你想跳过运行这个case，
+  //但是你不希望删除这些代码，使用skip()指定一些跳过的测试
+  //参考:test.skip，参考：https://jestjs.io/docs/en/api#testname-fn-timeout
   // waiting to upgrade EarlGrey version in order to test this (not supported in our current one)
   it.skip('should choose from multiple elements matching the same matcher using index', async () => {
     //从匹配的view集合中使用atIndex()选择匹配的view
