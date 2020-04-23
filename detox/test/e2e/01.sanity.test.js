@@ -10,6 +10,8 @@ describe('Sanity', () => {
     await element(by.text('Sanity')).tap();
   });
 
+  //it()方法，实际上test(name,fu,timeout)方法的别名，测试文件所需要执行的是测试方法fun
+  //name:测试名称，fun:包含期望测试的方法，timeout:指定终止前需要等待的时间，默认5秒
   //检查Welcome、Say Hello所有元素都在页面上
   it('should have welcome screen', async () => {
     await expect(element(by.text('Welcome'))).toBeVisible();
